@@ -1,0 +1,68 @@
+﻿<Window x:Class="StudentManager.MainWindow"
+        x:Name="Window_MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentManager"
+        xmlns:viewModel="clr-namespace:StudentManager.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Height="450" Width="800" 
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="MainWindow_MouseDown"
+        Topmost="True">
+    
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    
+    <Border Background="#272537" CornerRadius="15">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.ColumnSpan="2"
+                       Text="StudentManager"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="White"
+                       FontSize="40"/>
+
+            <StackPanel Grid.Row="1">
+                <RadioButton x:Name="rbtnHome" 
+                             Content="Home"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}" 
+                             IsChecked="True"
+                             Command="{Binding HomeViewCommand}"/>
+
+                <RadioButton x:Name="rbtnGroups" 
+                             Content="Groups"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding GroupViewCommand}"/>
+            </StackPanel>
+
+            <ContentControl Grid.Row="1" 
+                            Grid.Column="1"
+                            Content="{Binding CurrentView}"/>
+
+            <Border Grid.ColumnSpan="2" BorderThickness="0,0,0,1" BorderBrush="Black" />
+            <Border Grid.Row="1" BorderThickness="0,0,1,0" BorderBrush="Black" />
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="StudentManager.MVVM.View.GroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StudentManager.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="390" d:DesignWidth="600">
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Groups List" 
+                   Style="{StaticResource HeaderTextBlockTheme}"
+                   Grid.ColumnSpan="2"/>
+
+        <Grid x:Name="Grid_AddGroup" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Groups Faculty:"
+                       Style="{StaticResource InputTextBlockTheme}"/>
+            <TextBox x:Name="GroupGridField_Faculty" 
+                     Text="{Binding GroupFaculty,UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource InputTextBoxTheme}"/>
+
+            <TextBlock Text="Groups Speciality:" 
+                       Style="{StaticResource InputTextBlockTheme}"
+                       Grid.Row="1"/>
+            <TextBox x:Name="GroupGridField_Speciality" 
+                     Text="{Binding GroupSpeciality,UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource InputTextBoxTheme}"
+                     Grid.Row="1"/>
+
+            <TextBlock Text="Groups Year:" 
+                       Style="{StaticResource InputTextBlockTheme}"
+                       Grid.Row="2"/>
+            <TextBox x:Name="GroupGridField_Year" 
+                     Text="{Binding GroupYear,UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource InputTextBoxTheme}"
+                     Grid.Row="2"/>
+
+            <TextBlock Text="Groups Number:" 
+                       Style="{StaticResource InputTextBlockTheme}"
+                       Grid.Row="3"/>
+            <TextBox x:Name="GroupGridField_Number" 
+                     Text="{Binding GroupNumber,UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource InputTextBoxTheme}"
+                     Grid.Row="3"/>
+
+            <Button Content="Save Group" 
+                    Style="{StaticResource EditFormButtonTheme}"
+                    Command="{Binding DataContext.AddGroupCommand, ElementName=Grid_AddGroup}"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="4"/>
+        </Grid>
+
+        <DataGrid x:Name="DataGrid_Group" 
+                  CanUserAddRows="False" 
+                  AutoGenerateColumns="False"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  ItemsSource="{Binding Groups}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="GroupName" Width="*" Binding="{Binding Path=GroupName}"/>
+
+                <DataGridTemplateColumn Header="View" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="View" 
+                                    Command="{Binding DataContext.StudentViewCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                    CommandParameter="{Binding GroupName}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Edit" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit" 
+                                    Command="{Binding DataContext.EditGroupCommand, ElementName=DataGrid_Group}" 
+                                    CommandParameter="{Binding GroupName}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Delete" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" 
+                                    Command="{Binding DataContext.DeleteGroupCommand, ElementName=DataGrid_Group}" 
+                                    CommandParameter="{Binding GroupName}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
