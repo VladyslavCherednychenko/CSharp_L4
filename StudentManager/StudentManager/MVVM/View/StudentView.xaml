@@ -22,7 +22,7 @@
 
         <TextBlock Text="Students List" 
                    Style="{StaticResource HeaderTextBlockTheme}"
-                   Grid.ColumnSpan="2"/>
+                   Grid.ColumnSpan="5"/>
 
         <Grid x:Name="Grid_AddStudent" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
