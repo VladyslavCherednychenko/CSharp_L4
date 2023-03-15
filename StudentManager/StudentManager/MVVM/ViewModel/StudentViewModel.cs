@@ -1,17 +1,12 @@
-﻿using StudentManager.Core;
-using StudentManager.MVVM.Model.DataControllers;
-using StudentManager.MVVM.Model.DataProviders;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+
+using StudentManager.Core;
+using StudentManager.MVVM.Model.DataProviders;
+using StudentManager.MVVM.Model.DataControllers;
 
 namespace StudentManager.MVVM.ViewModel
 {

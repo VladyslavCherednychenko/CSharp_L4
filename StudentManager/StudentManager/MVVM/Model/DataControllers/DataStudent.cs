@@ -1,9 +1,7 @@
-﻿using StudentManager.MVVM.Model.DataProviders;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using StudentManager.MVVM.Model.DataProviders;
 
 namespace StudentManager.MVVM.Model.DataControllers
 {

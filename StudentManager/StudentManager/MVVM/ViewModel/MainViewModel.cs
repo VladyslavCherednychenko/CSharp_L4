@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
-using System.IO.Enumeration;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Windows;
 using StudentManager.Core;
 using StudentManager.MVVM.Model.DataProviders;
-using StudentManager.Utilities;
 
 namespace StudentManager.MVVM.ViewModel
 {
@@ -65,13 +62,24 @@ namespace StudentManager.MVVM.ViewModel
                 MyJsonObject jsonObject;
                 var serializer = new DataContractJsonSerializer(typeof(MyJsonObject));
 
-                using (var file = new FileStream("file.json", FileMode.Open))
+                using (var file = new FileStream("file.json", FileMode.OpenOrCreate))
                 {
-                    jsonObject = (MyJsonObject)serializer.ReadObject(file);
+                    try
+                    {
+                        jsonObject = (MyJsonObject)serializer.ReadObject(file);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        jsonObject = null;
+                    }
                 }
 
-                GroupsVM.Groups = new ObservableCollection<GroupModel>(jsonObject.Groups);
-                StudentVM.AllStudents = new ObservableCollection<StudentModel>(jsonObject.Students);
+                if (jsonObject != null)
+                {
+                    GroupsVM.Groups = new ObservableCollection<GroupModel>(jsonObject.Groups);
+                    StudentVM.AllStudents = new ObservableCollection<StudentModel>(jsonObject.Students);
+                }
             });
 
             ExportJsonCommand = new RelayCommand(o =>
